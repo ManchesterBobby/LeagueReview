@@ -1,0 +1,51 @@
+﻿@model LoadViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Upload Results</h2>
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="resultsFile" accept=".csv"  />
+    <input class="btn btn-primary" type="submit" value="Import" />
+}
+@if (Model.Teams.Count() > 0)
+{
+    <hr />
+    <table class="table table-striped table-responsive">
+        <thead>
+            <tr>
+                <th>League Position</th>
+                <th>Team Name</th>
+                <th>Goals Scored</th>
+                <th>Goals Conceded</th>
+                <th>Goal Difference</th>
+                <th>Points</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (LeagueTable team in Model.Teams)
+            {
+                <tr>
+                    <td>@team.LeaguePosition</td>
+                    <td>@team.TeamName</td>
+                    <td>@team.GoalsScored</td>
+                    <td>@team.GoalsConceded</td>
+                    <td>@team.GoalDifference</td>
+                    <td>@team.Points</td>
+                    <td>
+                        <a asp-action="display" asp-controller="details" asp-route-team="@team.TeamName"
+                            asp-route-file="@Model.CSVFile"
+                            class="btn btn-sm btn-info">
+                            Details
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

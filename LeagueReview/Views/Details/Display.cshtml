@@ -1,0 +1,54 @@
+﻿@model DetailsViewModel
+
+@{
+    ViewData["Title"] = "Details Page";
+}
+
+<h2>Team Results : @Model.TeamName </h2>
+
+@if (Model.TeamResults.Count() > 0)
+{
+        <hr />
+        <table class="table table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th>Division</th>
+                    <th>Date Played</th>
+                    <th>Time Played</th>
+                    <th>Home Team</th>
+                    <th>Away Team</th>
+                    <th>FTHG</th>
+                    <th>FTAG</th>
+                    <th>FTR</th>
+                    <th>HTHG</th>
+                    <th>HTAG</th>
+                    <th>HTR</th>
+                    <th>Referee</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (GameResults result in Model.TeamResults)
+                {
+                    <tr>
+                        <td>@result.Division</td>
+                        <td>@result.DatePlayed</td>
+                        <td>@result.TimePlayed</td>
+                        <td>@result.HomeTeam</td>
+                        <td>@result.AwayTeam</td>
+                        <td>@result.FullTimeHomeTeamGoals</td>
+                        <td>@result.FullTimeAwayTeamGoals</td>
+                        <td>@result.FullTimeResult</td>
+                        <td>@result.HalfTimeHomeTeamGoals</td>
+                        <td>@result.HalfTimeAwayTeamGoals</td>
+                        <td>@result.HalfTimeResult</td>
+                        <td>@result.Referee</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a asp-action="index" asp-controller="home" 
+           class="btn btn-primary">
+                Return
+        </a>
+
+}
